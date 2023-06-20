@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "DevsApp (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "DevsApp (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
