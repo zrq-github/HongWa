@@ -1,4 +1,5 @@
 ﻿using System.Collections.Specialized;
+using Microsoft.Windows.AppNotifications;
 
 namespace DevsApp.Contracts.Services;
 
@@ -6,9 +7,11 @@ public interface IAppNotificationService
 {
     void Initialize();
 
-    bool Show(string payload);
+    bool Show(in string payload);
 
-    NameValueCollection ParseArguments(string arguments);
+    bool Show(in AppNotification appNotification);
+
+    NameValueCollection ParseArguments(in string arguments);
 
     void Unregister();
 }

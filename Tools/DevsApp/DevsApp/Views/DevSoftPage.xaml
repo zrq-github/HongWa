@@ -1,0 +1,153 @@
+﻿<Page
+    x:Class="DevsApp.Views.DevSoftPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:DevsApp.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:DevsApp.Models"
+    xmlns:primitives="using:CommunityToolkit.WinUI.UI.Controls.Primitives"
+    xmlns:viewModels="using:DevsApp.ViewModels"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <helpers:BooleanConverter x:Key="BooleanConverter" />
+    </Page.Resources>
+
+    <Grid x:Name="ContentArea">
+        <Grid.Resources>
+            <DataTemplate x:Key="RowDetailsTemplate" x:DataType="models:DevSoftDown">
+                <StackPanel Orientation="Vertical">
+                    <Grid Margin="20,10" Padding="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="RemoteFolder" />
+                        <TextBox
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="{StaticResource SmallLeftMargin}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsSpellCheckEnabled="False"
+                            IsTextPredictionEnabled="True"
+                            Text="{Binding RemoteFolder, Mode=TwoWay}" />
+
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="下载路径" />
+                        <TextBox
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="{StaticResource SmallLeftMargin}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsSpellCheckEnabled="False"
+                            IsTextPredictionEnabled="True"
+                            Text="{Binding DownloadFolder, Mode=TwoWay}" />
+
+                        <CheckBox
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            Content="解压路径"
+                            IsChecked="{Binding IsUnzip, Mode=TwoWay}" />
+                        <TextBox
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="{StaticResource SmallLeftMargin}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            IsEnabled="{Binding IsUnzip, Mode=TwoWay}"
+                            IsSpellCheckEnabled="False"
+                            IsTextPredictionEnabled="True"
+                            Text="{Binding UnzipFolder, Mode=TwoWay}" />
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <Button
+                    Command="{x:Bind ViewModel.AddSelectCommand}"
+                    Content="添加"
+                    ToolTipService.ToolTip="选择一个进行复制" />
+                <Button
+                    Margin="{StaticResource SmallLeftMargin}"
+                    Command="{x:Bind ViewModel.RemoveSelectCommand}"
+                    Content="删除"
+                    ToolTipService.ToolTip="删除选择，会保留最后一个" />
+            </StackPanel>
+            <controls:DataGrid
+                Margin="{StaticResource SmallTopMargin}"
+                d:DataContext="{d:DesignInstance Type=models:DevSoftDown}"
+                AutoGenerateColumns="False"
+                GridLinesVisibility="Horizontal"
+                ItemsSource="{x:Bind ViewModel.DevSoftDowns, Mode=OneWay}"
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="VisibleWhenSelected"
+                SelectedIndex="{x:Bind ViewModel.SelectIndex, Mode=TwoWay}"
+                SelectionMode="Single">
+                <controls:DataGrid.Resources />
+                <!--  x:DataType="models:DevSoftDown"  -->
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn Binding="{Binding DevSoft.Id}" Header="ID" />
+                    <!--  下载入口  -->
+                    <controls:DataGridTemplateColumn Header="下载">
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Command="{Binding DownCommand}"
+                                    IsEnabled="{Binding IsDownloading, Converter={StaticResource BooleanConverter}}">
+                                    <Button.Content>
+                                        <FontIcon Glyph="&#xE896;" />
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                    <controls:DataGridTextColumn Binding="{Binding DevSoft.Name}" Header="Name" />
+                    <controls:DataGridTextColumn Binding="{Binding DevSoft.Version}" Header="Version" />
+                    <!--  下载进度提示  -->
+                    <controls:DataGridTemplateColumn Header="DownloadProgress">
+                        <!--<controls:DataGridTemplateColumn.HeaderStyle>
+                            <Style TargetType="primitives:DataGridColumnHeader">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="VerticalContentAlignment" Value="Center" />
+                            </Style>
+                        </controls:DataGridTemplateColumn.HeaderStyle>-->
+                        <controls:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ProgressBar
+                                    IsIndeterminate="{Binding DownloadProgress.IsIndeterminate}"
+                                    ShowError="{Binding DownloadProgress.IsError}"
+                                    ShowPaused="{Binding DownloadProgress.IsPaused}"
+                                    Value="{Binding DownloadProgress.Progress}" />
+                            </DataTemplate>
+                        </controls:DataGridTemplateColumn.CellTemplate>
+                    </controls:DataGridTemplateColumn>
+                </controls:DataGrid.Columns>
+            </controls:DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

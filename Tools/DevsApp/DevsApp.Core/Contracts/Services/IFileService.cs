@@ -7,4 +7,11 @@ public interface IFileService
     void Save<T>(string folderPath, string fileName, T content);
 
     void Delete(string folderPath, string fileName);
+
+    /// <summary>
+    /// 打开文件夹
+    /// </summary>
+    void OpenFolder(in string folderFullName);
+
+    void OpenFolderAndSelectItem(in string selectedItemPath);
 }

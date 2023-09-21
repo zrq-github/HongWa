@@ -7,6 +7,12 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentArea">
-        
+        <StackPanel Orientation="Vertical">
+            <Button Click="ButtonBase_OnClick" Content="测试消息通知" />
+            <Button
+                x:Name="BtnShowDialog"
+                Click="BtnShowDialog_OnClick"
+                Content="测试弹框" />
+        </StackPanel>
     </Grid>
 </Page>

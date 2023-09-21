@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.IO.IsolatedStorage;
+using System.Security.Principal;
+using System.Text;
 
 using DevsApp.Core.Contracts.Services;
 
@@ -6,6 +9,12 @@ using Newtonsoft.Json;
 
 namespace DevsApp.Core.Services;
 
+/// <summary>
+/// 文件服务
+/// </summary>
+/// <remarks>
+/// 如果没有特别说明，默认都是序列化成json文件
+/// </remarks>
 public class FileService : IFileService
 {
     public T Read<T>(string folderPath, string fileName)
@@ -37,5 +46,32 @@ public class FileService : IFileService
         {
             File.Delete(Path.Combine(folderPath, fileName));
         }
+    }
+
+    public void OpenFolder(in string folderFullName)
+    {
+        if (string.IsNullOrEmpty(folderFullName) || !Directory.Exists(folderFullName))
+        {
+            return;
+        }
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = "explorer.exe",
+            Arguments = folderFullName
+        };
+
+        Process.Start(psi);
+    }
+
+    public void OpenFolderAndSelectItem(in string selectedItemPath)
+    {
+        var psi = new ProcessStartInfo
+        {
+            FileName = "explorer.exe",
+            Arguments = $"/e,/select,\"{selectedItemPath}\""
+        };
+
+        Process.Start(psi);
     }
 }

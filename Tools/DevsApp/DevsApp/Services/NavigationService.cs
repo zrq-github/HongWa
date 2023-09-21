@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-using CommunityToolkit.WinUI.UI.Animations;
-
 using DevsApp.Contracts.Services;
 using DevsApp.Contracts.ViewModels;
 using DevsApp.Helpers;
@@ -125,6 +123,4 @@ public class NavigationService : INavigationService
             Navigated?.Invoke(sender, e);
         }
     }
-
-    public void SetListDataItemForNextConnectedAnimation(object item) => Frame.SetListDataItemForNextConnectedAnimation(item);
 }

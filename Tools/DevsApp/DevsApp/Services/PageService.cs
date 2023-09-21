@@ -15,12 +15,7 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<MainViewModel, MainPage>();
-        Configure<空白ViewModel, 空白Page>();
-        Configure<Web视图ViewModel, Web视图Page>();
-        Configure<列表详细信息ViewModel, 列表详细信息Page>();
-        Configure<内容网格ViewModel, 内容网格Page>();
-        Configure<内容网格DetailViewModel, 内容网格DetailPage>();
-        Configure<内容网格1ViewModel, 内容网格1Page>();
+        Configure<DevSoftViewModel, DevSoftPage>();
         Configure<SettingsViewModel, SettingsPage>();
     }
 

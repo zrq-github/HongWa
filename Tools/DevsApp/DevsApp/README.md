@@ -25,4 +25,3 @@ See [releases](https://github.com/microsoft/TemplateStudio/releases) and [milest
 ## Feedback
 
 Bugs and feature requests should be filed at https://aka.ms/templatestudio.
-	

@@ -67,56 +67,8 @@
   <data name="Shell_Main.Content" xml:space="preserve">
     <value>Main</value>
   </data>
-  <data name="Shell_空白.Content" xml:space="preserve">
-    <value>空白</value>
-  </data>
-  <data name="WebView_Loading.Text" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="WebView_FailedMessage.Text" xml:space="preserve">
-    <value>Page failed to load. Check connection and reload.</value>
-  </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser back</value>
-  </data>
-  <data name="BrowserBackButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser back</value>
-  </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Browser forward</value>
-  </data>
-  <data name="BrowserForwardButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Browser forward</value>
-  </data>
-  <data name="WebView_Reload.Content" xml:space="preserve">
-    <value>Reload</value>
-  </data>
-  <data name="ReloadButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Reload</value>
-  </data>
-  <data name="ReloadButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Reload</value>
-  </data>
-  <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
-    <value>Open in browser</value>
-  </data>
-  <data name="OpenInBrowserButton.[using:Microsoft.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Open in browser</value>
-  </data>
-  <data name="Shell_Web视图.Content" xml:space="preserve">
-    <value>Web视图</value>
-  </data>
-  <data name="列表详细信息_NoSelection.Text" xml:space="preserve">
-    <value>Select an item from the list.</value>
-  </data>
-  <data name="Shell_列表详细信息.Content" xml:space="preserve">
-    <value>列表详细信息</value>
-  </data>
-  <data name="Shell_内容网格.Content" xml:space="preserve">
-    <value>内容网格</value>
-  </data>
-  <data name="Shell_内容网格1.Content" xml:space="preserve">
-    <value>内容网格1</value>
+  <data name="Shell_DevSoftPage.Content" xml:space="preserve">
+    <value>DevSoft</value>
   </data>
   <data name="Settings_Personalization.Text" xml:space="preserve">
     <value>Personalization</value>
@@ -149,7 +101,7 @@
     <value>&lt;toast launch="action=ToastClick"&gt;
   &lt;visual&gt;
     &lt;binding template="ToastGeneric"&gt;
-      &lt;text&gt;App Notification&lt;/text&gt;
+      &lt;text&gt;App Notification&lt;/text&gt;                                           
       &lt;text&gt;&lt;/text&gt;
       &lt;image placement="appLogoOverride" hint-crop="circle" src="{0}Assets/WindowIcon.ico"/&gt;
     &lt;/binding&gt;

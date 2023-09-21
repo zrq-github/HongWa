@@ -11,16 +11,16 @@
   IgnorableNamespaces="uap rescap genTemplate">
 
   <Identity
-    Name="11a32400-5fb1-46a9-b52c-64ceff648280"
+    Name="22e007c6-f991-4638-a58f-f90c916312b6"
     Publisher="CN=zrq"
     Version="1.0.0.0" />
     
-  <mp:PhoneIdentity PhoneProductId="11a32400-5fb1-46a9-b52c-64ceff648280" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="22e007c6-f991-4638-a58f-f90c916312b6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
     
   <Properties>
     <DisplayName>DevsApp</DisplayName>
     <PublisherDisplayName>zrq</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <Logo>Assets\packages\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -40,20 +40,21 @@
         DisplayName="ms-resource:AppDisplayName"
         Description="ms-resource:AppDescription"
         BackgroundColor="transparent"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        Square150x150Logo="Assets\packages\Square150x150Logo.png"
+        Square44x44Logo="Assets\packages\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\packages\Wide310x150Logo.png"  Square71x71Logo="Assets\packages\SmallTile.png" Square310x310Logo="Assets\packages\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\packages\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\packages\BadgeLogo.png"  Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
           <desktop:Extension Category="windows.toastNotificationActivation">
-              <desktop:ToastNotificationActivation ToastActivatorCLSID="ff2e29fe-257a-4fb0-9a76-3e42d33f81ac" />
+              <desktop:ToastNotificationActivation ToastActivatorCLSID="8ae174fa-3f3a-4dc2-89b4-8d1d19110161" />
           </desktop:Extension>
 
           <com:Extension Category="windows.comServer">
               <com:ComServer>
                   <com:ExeServer Executable="DevsApp.exe" Arguments="----AppNotificationActivated:" DisplayName="Toast activator">
-                      <com:Class Id="ff2e29fe-257a-4fb0-9a76-3e42d33f81ac" DisplayName="Toast activator"/>
+                      <com:Class Id="8ae174fa-3f3a-4dc2-89b4-8d1d19110161" DisplayName="Toast activator"/>
                   </com:ExeServer>
               </com:ComServer>
           </com:Extension>

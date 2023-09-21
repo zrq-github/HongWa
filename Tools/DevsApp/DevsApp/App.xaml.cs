@@ -1,4 +1,5 @@
-﻿using DevsApp.Activation;
+﻿using ABI.Windows.UI.Core.Preview;
+using DevsApp.Activation;
 using DevsApp.Contracts.Services;
 using DevsApp.Core.Contracts.Services;
 using DevsApp.Core.Services;
@@ -12,6 +13,7 @@ using DevsApp.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
+using Windows.ApplicationModel.Core;
 
 namespace DevsApp;
 
@@ -41,12 +43,13 @@ public partial class App : Application
 
     public static WindowEx MainWindow { get; } = new MainWindow();
 
-    public static UIElement? AppTitlebar { get; set; }
+    public static UIElement? AppTitlebar
+    {
+        get; set;
+    }
 
     public App()
     {
-        InitializeComponent();
-
         Host = Microsoft.Extensions.Hosting.Host.
         CreateDefaultBuilder().
         UseContentRoot(AppContext.BaseDirectory).
@@ -62,32 +65,26 @@ public partial class App : Application
             services.AddSingleton<IAppNotificationService, AppNotificationService>();
             services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
             services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-            services.AddTransient<IWebViewService, WebViewService>();
             services.AddTransient<INavigationViewService, NavigationViewService>();
 
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<INavigationService, NavigationService>();
 
+            services.AddSingleton<IDataService, DataService>();
+            services.AddSingleton<IPathService, PathService>();
+            services.AddSingleton<IFluentFTPService, FluentFtpService>();
+
             // Core Services
             services.AddSingleton<ISampleDataService, SampleDataService>();
             services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<IHWService, HWService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
             services.AddTransient<SettingsPage>();
-            services.AddTransient<内容网格1ViewModel>();
-            services.AddTransient<内容网格1Page>();
-            services.AddTransient<内容网格DetailViewModel>();
-            services.AddTransient<内容网格DetailPage>();
-            services.AddTransient<内容网格ViewModel>();
-            services.AddTransient<内容网格Page>();
-            services.AddTransient<列表详细信息ViewModel>();
-            services.AddTransient<列表详细信息Page>();
-            services.AddTransient<Web视图ViewModel>();
-            services.AddTransient<Web视图Page>();
-            services.AddTransient<空白ViewModel>();
-            services.AddTransient<空白Page>();
+            services.AddTransient<DevSoftViewModel>();
+            services.AddTransient<DevSoftPage>();
             services.AddTransient<MainViewModel>();
             services.AddTransient<MainPage>();
             services.AddTransient<ShellPage>();
@@ -101,6 +98,13 @@ public partial class App : Application
         App.GetService<IAppNotificationService>().Initialize();
 
         UnhandledException += App_UnhandledException;
+        CoreApplication.Exiting += CoreApplication_Exiting;
+    }
+
+    private void CoreApplication_Exiting(object? sender, object e)
+    {
+        // 保存数据
+        App.GetService<IDataService>()?.SaveDevSoftDownAsync();
     }
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
@@ -113,7 +117,9 @@ public partial class App : Application
     {
         base.OnLaunched(args);
 
-        App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
+        // todo zrq 也许这里可以补一个打开提示
+
+        //App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
 
         await App.GetService<IActivationService>().ActivateAsync(args);
     }

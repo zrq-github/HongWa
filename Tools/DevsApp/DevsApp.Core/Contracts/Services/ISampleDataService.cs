@@ -6,8 +6,4 @@ namespace DevsApp.Core.Contracts.Services;
 public interface ISampleDataService
 {
     Task<IEnumerable<SampleOrder>> GetGridDataAsync();
-
-    Task<IEnumerable<SampleOrder>> GetContentGridDataAsync();
-
-    Task<IEnumerable<SampleOrder>> GetListDetailsDataAsync();
 }
